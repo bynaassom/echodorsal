@@ -1,0 +1,207 @@
+{
+  "ok": true,
+  "result": {
+    "worktrees": [
+      {
+        "worktreeId": "worktree-1",
+        "displayName": "Worktree 1",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-2",
+        "displayName": "Worktree 2",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-3",
+        "displayName": "Worktree 3",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-4",
+        "displayName": "Worktree 4",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-5",
+        "displayName": "Worktree 5",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-6",
+        "displayName": "Worktree 6",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-7",
+        "displayName": "Worktree 7",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-8",
+        "displayName": "Worktree 8",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-9",
+        "displayName": "Worktree 9",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-10",
+        "displayName": "Worktree 10",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-11",
+        "displayName": "Worktree 11",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-12",
+        "displayName": "Worktree 12",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-13",
+        "displayName": "Worktree 13",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-14",
+        "displayName": "Worktree 14",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-15",
+        "displayName": "Worktree 15",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-16",
+        "displayName": "Worktree 16",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-17",
+        "displayName": "Worktree 17",
+        "workspaceStatus": "todo",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-18",
+        "displayName": "Worktree 18",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-19",
+        "displayName": "Worktree 19",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-20",
+        "displayName": "Worktree 20",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-21",
+        "displayName": "Worktree 21",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-22",
+        "displayName": "Worktree 22",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-23",
+        "displayName": "Worktree 23",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-24",
+        "displayName": "Worktree 24",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-25",
+        "displayName": "Worktree 25",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-26",
+        "displayName": "Worktree 26",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-27",
+        "displayName": "Worktree 27",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-28",
+        "displayName": "Worktree 28",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-29",
+        "displayName": "Worktree 29",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-30",
+        "displayName": "Worktree 30",
+        "workspaceStatus": "completed",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-31",
+        "displayName": "Worktree 31",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      },
+      {
+        "worktreeId": "worktree-32",
+        "displayName": "Worktree 32",
+        "workspaceStatus": "in-progress",
+        "hostId": "local"
+      }
+    ],
+    "totalCount": 32,
+    "truncated": false,
+    "hostScope": {
+      "hostIds": [
+        "local"
+      ],
+      "omittedHostIds": []
+    }
+  }
+}

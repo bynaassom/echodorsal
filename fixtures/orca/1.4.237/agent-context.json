@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "commands": [
+    {
+      "command": "agent-context",
+      "flags": [
+        "json"
+      ]
+    },
+    {
+      "command": "orchestration gate-list",
+      "flags": [
+        "json",
+        "run"
+      ]
+    },
+    {
+      "command": "orchestration task-list",
+      "flags": [
+        "json",
+        "run"
+      ]
+    },
+    {
+      "command": "status",
+      "flags": [
+        "json"
+      ]
+    },
+    {
+      "command": "worktree ps",
+      "flags": [
+        "json"
+      ]
+    }
+  ]
+}
