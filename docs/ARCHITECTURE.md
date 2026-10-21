@@ -66,8 +66,19 @@ trait Clock { fn now(&self) -> Instant; }   // testes determinísticos
 
 ### Consulta por voz (síncrono, < 8 s)
 
-1. Alexa chama `POST /alexa`.
-2. Valida assinatura, cadeia, timestamp, `applicationId`, `userId`. Falhou → `401`, sem corpo útil.
+1. Alexa chama `POST /alexa` (timeout de 5 s, body limitado a 256 KiB).
+2. Validação estrita da requisição (`echodorsal-alexa::validation::Validator`):
+   - Valida cabeçalhos únicos obrigatórios (`SignatureCertChainUrl` e `Signature-256`).
+   - Normaliza e valida URL do certificado (`https://s3.amazonaws.com/echo.api/...` na porta 443, sem query/credenciais).
+   - Resolve cadeia de certificados com cache em memória (TTL 1 h, máximo 16 entradas, até 4 buscas simultâneas) e validação ancorada em `webpki-roots` (Mozilla), exigindo SAN `echo-api.amazon.com` e validade temporal revalidada a cada uso.
+   - Valida assinatura SHA256withRSA sobre os bytes brutos do corpo (`raw_body`).
+   - Valida frescor do envelope: `timestamp` dentro da janela de tolerância de ±150 s em relação ao relógio local.
+   - Valida `applicationId` e `userId` contra a `Allowlist` carregada do `echodorsal.toml` (falha no startup se vazia).
+   - **Códigos de status HTTP (decisão F0-03 / ADR 0003):**
+     - Falhas criptográficas, formato, cabeçalhos, URL, assinatura, cadeia, body malformado ou timestamp expirado: `400 Bad Request` sem corpo.
+     - `applicationId` ou `userId` fora da allowlist: `401 Unauthorized` sem corpo.
+     - Timeout no pipeline de autenticação (5 s): `400 Bad Request` sem corpo.
+     - Nenhuma informação de erro interna ou stack trace vaza nas respostas.
 3. Intent router → caso de uso → **snapshot em cache** (TTL curto) ou chamada ao `OrcaPort` com timeout de 3 s.
 4. `VoiceReply` (≤ 3 frases) → SSML. Meta: p95 < 1,5 s; limite duro 8 s.
 5. Orca fechado/ lento → resposta degradada falada (ver `docs/VOICE-UX.md`).
@@ -104,12 +115,13 @@ Migrations versionadas; nunca editar migration publicada.
 
 | Ameaça | Mitigação |
 |---|---|
-| Requisição forjada em `/alexa` | validação completa da requisição Alexa; allowlist de `userId` e `applicationId`; rate limit |
-| Painel exposto na internet | bind em `127.0.0.1`; túnel mapeia **somente** `/alexa` |
+| Requisição forjada em `/alexa` | validação criptográfica completa (`rustls-webpki` + `ring`, URL restrita em `s3.amazonaws.com/echo.api/`, SAN `echo-api.amazon.com`, raízes `webpki-roots`, assinatura RSA-SHA256 sobre bytes brutos, timestamp ±150 s, timeout 5 s, body max 256 KiB); rejeição com `400` sem corpo |
+| Chamador Alexa não autorizado | allowlists obrigatórias e não-vazias de `applicationId` e `userId`; rejeição com `401` sem corpo |
+| Painel ou API expostos na internet | servidor exige estritamente bind em `127.0.0.1` no startup (`anyhow::ensure!`); túnel mapeia **somente** `/alexa` |
 | Comando de voz mal entendido executando ação | somente leitura por padrão; releitura + confirmação; PIN para ações sensíveis; auditoria |
 | Worker iniciado por voz com permissões amplas | modo manual de permissões; o Orca preenche por padrão flags de bypass nos agentes — não herdar |
 | Vazamento de contexto de projeto via LLM | `Refiner` desligado por padrão; só vocabulário (nomes), nunca código; limpeza de rastros do `agy` |
-| Segredos em logs | `tracing` com redação; testes que falham ao detectar padrões de token |
+| Segredos em logs | `tracing` com redação; testes que falham ao detectar padrões de token; erros de validação opacos |
 
 ## Resiliência
 

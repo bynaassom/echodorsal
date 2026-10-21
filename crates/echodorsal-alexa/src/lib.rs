@@ -1,7 +1,8 @@
-//! Pure Alexa request/response models for the F0-02 hello spike.
+//! Alexa models, deterministic hello behavior and request authentication.
 //!
-//! Deserialization is not authentication. No HTTP endpoint is provided here.
-//! F0-03 must validate the raw body and caller before invoking this behavior.
+//! Deserialization is not authentication: use `validation::Validator` before behavior.
+
+pub mod validation;
 
 use serde::{Deserialize, Serialize};
 
