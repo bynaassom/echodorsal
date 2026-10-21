@@ -18,6 +18,8 @@ para o backlog (final do arquivo), não para o código.
 
 Objetivo: provar as partes incertas antes de construir em cima delas.
 
+Estado: F0-01 (workspace e CI) preparado; verificações locais de Rust, `cargo deny` e build do front passaram. A confirmação do CI no GitHub ainda depende de publicar a branch.
+
 - Skill "olá" em pt-BR respondendo via túnel, com validação de assinatura.
 - `OrcaAdapter` lendo `status`, `worktree ps` e `task-list`, com fixtures gravadas.
 - Investigação da **fonte de uso** (Orca, `agy`, Codex) e do **`agy` headless** (latência, rastros locais).

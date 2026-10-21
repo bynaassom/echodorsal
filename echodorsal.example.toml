@@ -1,0 +1,18 @@
+# Copie para echodorsal.toml e substitua os valores de exemplo.
+
+[server]
+host = "127.0.0.1"
+port = 8080
+
+[alexa]
+application_ids = []
+user_ids = []
+
+[[projects]]
+id = "example"
+name = "Projeto de exemplo"
+spoken_names = ["projeto de exemplo"]
+
+[features]
+writes = false
+refiner = false

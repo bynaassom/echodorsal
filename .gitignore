@@ -1,0 +1,7 @@
+/target/
+/.cache/
+/.worktrees/
+/web/node_modules/
+/web/dist/
+/web/pnpm-debug.log
+/echodorsal.toml
