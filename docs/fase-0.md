@@ -29,31 +29,31 @@ Todos leem `AGENTS.md` primeiro. Spikes entregam relatório em `docs/spikes/`.
 **Contexto:** provar o pipeline de voz e o reconhecimento em pt-BR. Ler `docs/VOICE-UX.md`.
 **Escopo:**
 1. Modelo de interação mínimo em `alexa/` (locale pt-BR) com nome de invocação "eco dorsal", intents `SaudeSistemaIntent`, `AMAZON.HelpIntent`, `AMAZON.StopIntent`, `AMAZON.FallbackIntent`.
-2. Handler `POST /alexa` em `echodorsal-server` devolvendo SSML ("Eco dorsal no ar.") e tratando `LaunchRequest`/`SessionEndedRequest`.
-3. Validação **ainda desligada por flag explícita de dev** (será obrigatória na F0-03).
+2. Modelos puros de request/response e comportamento local em `echodorsal-alexa`, devolvendo SSML ("Eco dorsal no ar.") e tratando `LaunchRequest`/`SessionEndedRequest`, ajuda, saída e fallback. Não montar `POST /alexa` nesta preparação.
+3. **Decisão de execução:** concluir F0-03 antes de expor `/alexa`, inclusive em desenvolvimento. A ligação HTTP do comportamento preparado aqui fica na F0-03, sempre após validação completa; não criar flag de bypass.
 4. Relatório `docs/spikes/skill-ola.md`: pt-BR aceito? nome de invocação aceito? 20 frases testadas com taxa de acerto por intent; comportamento do slot de texto livre (frase-veículo).
 **Fora do escopo:** Orca, painel, escrita.
 **Critérios de aceite:** "Alexa, abrir eco dorsal" responde; relatório com números reais.
 **Verificação:** demonstração no Echo Pop (modo de desenvolvimento) e leitura do relatório.
-**Entregáveis:** `alexa/`, handler, `docs/spikes/skill-ola.md`, atualização de `docs/VOICE-UX.md` se algo divergir.
+**Entregáveis:** `alexa/`, modelos e comportamento puro com testes locais, `docs/spikes/skill-ola.md`, atualização de `docs/VOICE-UX.md` se algo divergir. O relatório permanece parcial até as medições reais após F0-03/F0-04.
 **Depende de:** F0-01
 
 ---
 
 ## F0-03 — Validação de requisições Alexa
 
-**Contexto:** segurança obrigatória (`AGENTS.md`, regra 4). Seguir a documentação oficial vigente da Amazon sobre validação de requisições.
+**Contexto:** segurança obrigatória (`AGENTS.md`, regra 4). Seguir a [documentação oficial da Amazon para web services](https://developer.amazon.com/en-US/docs/alexa/custom-skills/host-a-custom-skill-as-a-web-service.html) sobre validação de requisições.
 **Escopo:**
 1. Validar URL e cadeia do certificado informados na requisição, validade do certificado e nome esperado, e a **assinatura do corpo bruto** (confirmar na doc qual cabeçalho/algoritmo está vigente).
 2. Validar `timestamp` dentro da tolerância recomendada pela Amazon.
 3. Conferir `applicationId` e `userId` contra a allowlist do `echodorsal.toml`.
 4. Cache de certificados com expiração; falha segura (rejeitar em caso de dúvida).
-5. Remover/neutralizar a flag de dev da F0-02 para uso fora de testes locais explícitos.
+5. Montar `POST /alexa` chamando o comportamento preparado na F0-02 somente depois da validação completa. Não há bypass de validação, nem em desenvolvimento.
 **Fora do escopo:** autenticação do painel.
-**Critérios de aceite:** testes cobrindo requisição válida, assinatura inválida, certificado inválido, timestamp velho, `applicationId`/`userId` fora da allowlist; todos os inválidos retornam `401` sem corpo útil.
+**Critérios de aceite:** testes cobrindo requisição válida, assinatura inválida, certificado inválido, timestamp velho, `applicationId`/`userId` fora da allowlist. Conforme decisão do usuário baseada na documentação oficial da Amazon, assinatura/certificado/timestamp inválidos retornam `400`; `applicationId`/`userId` fora da allowlist retornam `401`; rejeições não retornam corpo útil.
 **Verificação:** `cargo test -p echodorsal-alexa`; teste manual com requisição adulterada.
 **Entregáveis:** módulo de validação, testes, seção de segurança atualizada em `docs/ARCHITECTURE.md`.
-**Depende de:** F0-02
+**Depende de:** preparação local F0-02 (a demonstração real de F0-02 aguarda F0-03/F0-04)
 
 ---
 
@@ -67,9 +67,9 @@ Todos leem `AGENTS.md` primeiro. Spikes entregam relatório em `docs/spikes/`.
 4. Relatório `docs/spikes/tunel.md` (latência medida, comportamento com Mac em repouso, passos de recuperação).
 **Fora do escopo:** domínio público para o painel.
 **Critérios de aceite:** a skill responde via túnel; requisição externa a `/api` ou ao painel é recusada; relatório com latências.
-**Verificação:** `curl` externo em `/alexa` (assinatura inválida → `401`) e em `/api` (→ `404`/recusado).
+**Verificação:** `curl` externo em `/alexa` (assinatura inválida → `400`) e em `/api` (→ `404`/recusado).
 **Entregáveis:** script, documentação, testes, relatório.
-**Depende de:** F0-02
+**Depende de:** preparação local F0-02, F0-03
 
 ---
 

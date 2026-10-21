@@ -1,0 +1,22 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "eco dorsal",
+      "intents": [
+        {
+          "name": "SaudeSistemaIntent",
+          "samples": [
+            "o orca está aberto",
+            "orca online",
+            "você está no ar",
+            "como está o sistema"
+          ]
+        },
+        { "name": "AMAZON.HelpIntent", "samples": [] },
+        { "name": "AMAZON.StopIntent", "samples": [] },
+        { "name": "AMAZON.CancelIntent", "samples": [] },
+        { "name": "AMAZON.FallbackIntent", "samples": [] }
+      ]
+    }
+  }
+}
