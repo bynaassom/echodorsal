@@ -26,7 +26,7 @@ fn real_sanitized_contract() {
     assert_eq!(worktrees.total_count, 32);
     assert!(!worktrees.truncated);
     assert_eq!(worktrees.host_scope.host_ids, ["local"]);
-    assert!(worktrees.host_scope.omitted_host_ids.is_empty());
+    assert_eq!(worktrees.host_scope.omitted_host_ids, Vec::<String>::new());
     assert!(
         worktrees
             .worktrees
