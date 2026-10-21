@@ -1,0 +1,8 @@
+# Ingress do túnel local. O script de execução recebe o UUID do túnel e
+# transmite as credenciais do Keychain por um pipe anônimo.
+
+ingress:
+  - hostname: alexa.bynaassom.com.br
+    path: ^/alexa$
+    service: http://127.0.0.1:8080
+  - service: http_status:404
