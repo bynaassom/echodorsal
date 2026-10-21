@@ -1,0 +1,29 @@
+:root {
+  color-scheme: dark;
+  font-family: "Work Sans", system-ui, sans-serif;
+  color: #f1f5f8;
+  background: #161925;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+
+main {
+  max-width: 42rem;
+  padding: 2rem;
+}
+
+h1 {
+  margin: 0;
+  color: #dcf763;
+  font-size: 2rem;
+}
+
+p {
+  color: #8ea8c3;
+}
