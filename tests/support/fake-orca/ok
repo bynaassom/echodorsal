@@ -1,0 +1,2 @@
+#!/bin/sh
+FAKE_ORCA_MODE=ok exec "$(dirname -- "$0")/fake-orca" "$@"

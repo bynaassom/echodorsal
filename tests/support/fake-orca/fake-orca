@@ -1,0 +1,32 @@
+#!/bin/sh
+set -eu
+MODE=${FAKE_ORCA_MODE:-ok}
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../../.." && pwd)
+if [ "$MODE" = slow ]; then exec sleep 10; fi
+if [ "$MODE" = bad-json ]; then printf '{broken\n'; exit 0; fi
+if [ "$MODE" = not-running ]; then
+  printf '{"ok":false,"error":{"code":"not_running"}}\n'
+  exit 1
+fi
+case "$*" in
+  'status --json')
+    if [ "$MODE" = unknown-fields ]; then
+      printf '{"ok":true,"future":1,"result":{"future":{},"app":{"running":true,"future":1},"runtime":{"state":"future-runtime","reachable":true,"appVersion":"9.0.0","future":1}}}\n'
+    else cat "$ROOT/fixtures/orca/1.4.237/status.json"; fi ;;
+  'agent-context --json') cat "$ROOT/fixtures/orca/1.4.237/agent-context.json" ;;
+  'worktree ps --json')
+    if [ "$MODE" = unknown-fields ]; then
+      printf '{"ok":true,"future":1,"result":{"future":{},"totalCount":1,"truncated":false,"hostScope":{"hostIds":["local"],"omittedHostIds":[],"future":1},"worktrees":[{"worktreeId":"future-worktree","hostId":"local","workspaceStatus":"future-state","future":true}]}}\n'
+    else cat "$ROOT/fixtures/orca/1.4.237/worktrees.json"; fi ;;
+  'orchestration task-list --json') cat "$ROOT/fixtures/orca/1.4.237/tasks.json"; exit 1 ;;
+  'orchestration gate-list --json') cat "$ROOT/fixtures/orca/1.4.237/gates.json"; exit 1 ;;
+  'orchestration task-list --run run-demo --json')
+    if [ "$MODE" = unknown-fields ]; then
+      printf '{"ok":true,"result":{"tasks":[{"id":"demo-task","task_title":"Demo task","status":"future-task-state","future":1}]}}\n'
+    else cat "$ROOT/fixtures/orca/1.4.237/tasks-run.json"; fi ;;
+  'orchestration gate-list --run run-demo --json')
+    if [ "$MODE" = unknown-fields ]; then
+      printf '{"ok":true,"result":{"gates":[{"id":"demo-gate","question":"Demo question?","status":"future-gate-state","future":1}]}}\n'
+    else cat "$ROOT/fixtures/orca/1.4.237/gates-run.json"; fi ;;
+  *) printf '{"ok":false,"error":{"code":"unknown_command"}}\n'; exit 1 ;;
+esac

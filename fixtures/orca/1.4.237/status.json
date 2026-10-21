@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "result": {
+    "app": {
+      "running": true
+    },
+    "runtime": {
+      "reachable": true,
+      "state": "ready",
+      "appVersion": "1.4.237"
+    }
+  }
+}

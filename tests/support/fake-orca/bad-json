@@ -1,0 +1,2 @@
+#!/bin/sh
+FAKE_ORCA_MODE=bad-json exec "$(dirname -- "$0")/fake-orca" "$@"
