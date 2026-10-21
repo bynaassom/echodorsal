@@ -115,5 +115,5 @@ fn interaction_model_declares_supported_intents_and_invocation() {
             "AMAZON.FallbackIntent"
         ]
     );
-    assert!(!intents[0]["samples"].as_array().unwrap().is_empty());
+    assert_ne!(intents[0]["samples"].as_array().unwrap().len(), 0);
 }
