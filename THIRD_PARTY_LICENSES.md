@@ -1,6 +1,9 @@
 # Licenças de terceiros
 
-Neste bootstrap, os crates Rust não usam dependências externas. A interface web usa Vite e TypeScript
+O crate Alexa usa Serde (MIT OR Apache-2.0) para desserializar requests e serializar respostas
+conforme o contrato JSON da Alexa; Serde JSON (MIT OR Apache-2.0) é usado nos testes locais.
+As dependências transitivas e suas licenças são verificadas por `cargo deny`.
+A interface web usa Vite e TypeScript
 como dependências de desenvolvimento; os avisos das dependências transitivas serão auditados pelo
 `cargo deny` (Rust) e pelos metadados do pnpm antes de qualquer distribuição.
 
